@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Items</title>
+    <style>
+        /* Ensure no margin or padding and that the content fills the page */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;  /* Prevent scrolling */
+        }
+
+        /* Style for the main title */
+        h1.main-title {
+            font-size: 5vw;  /* Adjust text size based on viewport width */
+            text-align: center;
+            margin: 0;
+        }
+
+        /* Responsive text size for individual items */
+        h1 {
+            font-size: 8vw;  /* Adjust text size based on viewport width */
+            text-align: center;
+            margin: 0;
+        }
+
+        /* Flexbox container for center alignment */
+        .content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;  /* Prevent scrolling within the content */
+        }
+
+        /* Media Queries to adjust text size on smaller screens */
+        @media (max-width: 600px) {
+            h1.main-title {
+                font-size: 10vw; /* Larger font for smaller screens */
+            }
+            h1 {
+                font-size: 15vw; /* Larger font for smaller screens */
+            }
+        }
+
+        @media (max-width: 400px) {
+            h1.main-title {
+                font-size: 15vw; /* Even larger font for very small screens */
+            }
+            h1 {
+                font-size: 20vw; /* Larger font for very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="main-title">Items List:</h1>
+    <div class="content">
+        {% for item in items %}
+            <h1>{{ item }}</h1>
+        {% endfor %}
+    </div>
+</body>
+</html>
