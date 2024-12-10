@@ -177,10 +177,13 @@ for div in divs:
 
 menu_html = [f"<h1>{key}</h1>" for key in menu_items]
 
+with open("index.html", "w") as f:
+    f.write(html_file.replace("[keys]", '\n'.join(menu_html)))
 
+#print(html_file)
 
-
-from flask import Flask, render_template
+exit()
+from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
@@ -221,6 +224,10 @@ def index():
     
 
     return render_template('index.html', items=data_dict)
+
+@app.route("/menu", methods=["GET"])
+def menu():
+    return jsonify(menu_items)
 
 if __name__ == '__main__':
     app.run()
