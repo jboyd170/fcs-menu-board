@@ -10,12 +10,15 @@ on:
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     
     steps:
     # Step 1: Checkout code
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     # Step 2: Set up Python environment
     - name: Set up Python
@@ -33,18 +36,13 @@ jobs:
     - name: Run Python script
       run: python main.py
 
-    # Step 5: Build the HTML content (we're assuming script.py generates index.html)
-    - name: Create and prepare the HTML file for GitHub Pages
-      run: |
-        # Check if the index.html file was created
-        ls -l index.html
-        mkdir -p deploy # Create a temporary folder to store content for GitHub Pages
-        cp index.html deploy/ # Copy index.html to deploy folder
-
-    # Step 6: Deploy to GitHub Pages
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        personal_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically provides this token
-        branch: gh-pages  # The branch where GitHub Pages content is deployed
-        folder: deploy  # The folder containing the generated HTML file
+        # Upload entire repository
+        path: '.'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
