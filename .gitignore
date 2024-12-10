@@ -1,3 +1,8 @@
+# Other directories
+my-react-app/
+templates/
+Testing/
+
 # Logs
 logs
 *.log
