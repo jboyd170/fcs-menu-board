@@ -1,7 +1,7 @@
 # Other directories
 my-react-app
-templates/
 Testing/
+test.py
 
 # Logs
 logs
