@@ -20,7 +20,7 @@ with open("templates/menu.html", "r") as f:
 with open("templates/no_menu.html", "r") as f:
     no_menu_html = f.read()
 
-current_date = "12/11" #datetime.now().strftime("%m/%d")
+current_date = datetime.now().strftime("%m/%d")
 url = "https://www.nutritics.com/menu/ma1135"
 
 response = requests.get(url)
