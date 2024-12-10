@@ -71,77 +71,100 @@ html_file = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Items</title>
+    <title>Lunch Items Today</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css">
     <style>
-        /* Ensure no margin or padding and that the content fills the page */
-        body, html {
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
             margin: 0;
-            padding: 0;
-            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            /*overflow: hidden;  /* Prevent scrolling */
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
         }
-        .circular-image {
-                    width: 150px;
-                    height: 150px;
-                    border-radius: 50%;
-                    border: 5px solid #333;
-                    object-fit: fill;
-                }
 
-        /* Style for the main title */
-        h1.main-title {
-            font-size: 5vw;  /* Adjust text size based on viewport width */
+        .main-container {
+            width: 90%;
+            max-width: 600px;
+            height: auto;
+            margin: auto;
+        }
+
+        .main-title {
+            font-weight: bold;
             text-align: center;
-            margin: 0;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
         }
 
-        /* Responsive text size for individual items */
-        h1 {
-            font-size: 4vw;  /* Adjust text size based on viewport width */
+        .lunch-table {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            background-color: #343a40;
+            color: #fff;
             text-align: center;
-            margin: 10;
+            font-weight: bold;
+            padding: 10px;
+            font-size: 1.2rem;
         }
 
-        /* Flexbox container for center alignment */
-        .content {
-            width: 60%;
-            height: 40%;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            /*overflow: hidden;  /* Prevent scrolling within the content */
+        .table-content {
+            width: 100%;
         }
 
-        /* Media Queries to adjust text size on smaller screens */
-        @media (max-width: 600px) {
-            h1.main-title {
-                font-size: 10vw; /* Larger font for smaller screens */
-            }
-            h1 {
-                font-size: 15vw; /* Larger font for smaller screens */
-            }
+        .table-row {
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #ddd;
         }
 
-        @media (max-width: 400px) {
-            h1.main-title {
-                font-size: 15vw; /* Even larger font for very small screens */
-            }
-            h1 {
-                font-size: 20vw; /* Larger font for very small screens */
-            }
+        .table-row:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .footer-text {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.9rem;
+            color: #555;
+            font-style: italic;
+            text-align: right;
+            background-color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
-<h1 class="main-title">Lunch Items Today:</h1>
 <body>
-    <div class="content">
-        [keys]
+
+    <div class="main-container">
+        <h1 class="main-title">Lunch Items Today:</h1>
+        <div class="lunch-table">
+            <div class="table-header">Lunch Items</div>
+            <div class="table-content">
+                [keys]
+            </div>
+        </div>
     </div>
+
+    <div class="footer-text">Built by STEM</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 """
@@ -175,7 +198,7 @@ for div in divs:
     data_uri = f"data:image/jpeg;base64,{image_base64}"
     data_uris.append(data_uri)
 
-menu_html = [f"<h1>{key}</h1>" for key in menu_items]
+menu_html = [f'<div class="table-row">{key}</div>' for key in menu_items]
 
 with open("index.html", "w") as f:
     f.write(html_file.replace("[keys]", '\n'.join(menu_html)))
