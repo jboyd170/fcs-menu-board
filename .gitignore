@@ -133,3 +133,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+Testing/download.jpg
+Testing/out.html
+Testing/output.html
+Testing/test.py
