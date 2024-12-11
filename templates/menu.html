@@ -12,7 +12,7 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             flex-direction: column;
             height: 100%;
             width: 100%;
@@ -21,8 +21,12 @@
         }
 
         .main-container {
-            width: 90%;
-            max-width: 300px;
+            width: 100%;
+            max-width: none;
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            flex-wrap: wrap;
             height: auto;
             margin: auto;
         }
@@ -35,10 +39,11 @@
         }
 
         .lunch-table {
-            width: 100%;
+            width: initial;
             border: 1px solid #ddd;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            flex: 1 0 300px;
         }
 
         .table-header {
