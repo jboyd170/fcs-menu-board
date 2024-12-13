@@ -6,6 +6,32 @@ import re
 from dotenv import load_dotenv
 load_dotenv()
 
+
+import json
+import os
+
+STATE_FILE = "data/state.json"
+
+def load_state():
+    # Load existing state
+    if os.path.exists(STATE_FILE):
+        with open(STATE_FILE, "r") as f:
+            state = json.load(f)
+    else:
+        state = {"count": 0}
+    return state
+
+def update_state(state):
+    # Update state
+    state["count"] += 1
+    print(f"Current count: {state['count']}")
+
+def save_state(state):
+    # Save state
+    os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
+    with open(STATE_FILE, "w") as f:
+        json.dump(state, f)
+
 def extract_number_id(input_string):
     match = re.search(r'\d+', input_string)
 
@@ -61,6 +87,12 @@ for item in child_divs:
     else:
         other_items.append(item.get("data-name"))
 
+state = load_state()
+menu_items = main_menu_items + other_items
+for key, value in state.items():
+    if key not in menu_items:
+        state[key] = {"photo": "", "emoji": ""}
+
 """
 # This is for lunch photos
 divs = results_div.find_all('div', class_=['foodphoto', ' small', 'exists'])
@@ -85,51 +117,3 @@ with open("index.html", "w") as f:
 #print(html_file)
 
 exit()
-from flask import Flask, render_template, jsonify
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    url = "https://www.nutritics.com/menu/ma1135/" + menu_id  # Replace with the actual URL
-
-    response = requests.get(url)
-
-    soup = BeautifulSoup(response.content, 'html.parser')
-
-    results_div = soup.find('div', id='results')
-
-    child_divs = results_div.find_all('div', recursive=False)
-
-
-    menu_items = []
-    for item in child_divs:
-        if item.get("data-groupname") == "Main Plate":
-            menu_items.append(item.get("data-name"))
-
-
-
-
-    divs = results_div.find_all('div', class_=['foodphoto', ' small', 'exists'])
-    data_uris = []
-    for div in divs:
-        style = div.get('style').split('(')[1][:-1]
-        response = requests.get("https://www.nutritics.com"+style)
-        image_data = response.content
-        image_base64 = base64.b64encode(image_data).decode("utf-8")
-        data_uri = f"data:image/jpeg;base64,{image_base64}"
-        data_uris.append(data_uri)
-
-    print(len(menu_items))
-    print(len(data_uris))
-    data_dict = dict(zip(menu_items, data_uris[::2]))
-    
-
-    return render_template('index.html', items=data_dict)
-
-@app.route("/menu", methods=["GET"])
-def menu():
-    return jsonify(menu_items)
-
-if __name__ == '__main__':
-    app.run()
