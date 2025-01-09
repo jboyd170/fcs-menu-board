@@ -18,7 +18,7 @@ def load_state():
         with open(STATE_FILE, "r") as f:
             state = json.load(f)
     else:
-        state = {"count": 0}
+        state = {}
     return state
 
 def update_state(state):
@@ -89,10 +89,11 @@ for item in child_divs:
 
 state = load_state()
 menu_items = main_menu_items + other_items
-for key, value in state.items():
-    if key not in menu_items:
+for key in menu_items:
+    if key not in state.keys():
         state[key] = {"photo": "", "emoji": ""}
 
+save_state(state)
 """
 # This is for lunch photos
 divs = results_div.find_all('div', class_=['foodphoto', ' small', 'exists'])
