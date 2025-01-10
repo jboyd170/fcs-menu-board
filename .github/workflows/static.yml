@@ -60,7 +60,7 @@ jobs:
         if [ -n "$(git status --porcelain)" ]; then
           git add .
           git commit -m "Github Actions: Caching $(date +'%Y-%m-%d')"
-          git push https://$GITHUB_TOKEN@github.com/${{ github.repository }}.git
+          git push https://$PERSONAL_ACCESS_TOKEN@github.com/${{ github.repository }}.git
         else
           echo "No changes to commit."
         fi
