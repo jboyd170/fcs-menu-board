@@ -46,7 +46,7 @@ with open("templates/menu.html", "r") as f:
 with open("templates/no_menu.html", "r") as f:
     no_menu_html = f.read()
 
-current_date = datetime.now().strftime("%m/%d")
+current_date = "1/15" #datetime.now().strftime("%m/%d")
 url = "https://www.nutritics.com/menu/ma1135"
 
 response = requests.get(url)
@@ -92,6 +92,7 @@ menu_items = main_menu_items + other_items
 for key in menu_items:
     if key not in state.keys():
         state[key] = {"photo": "", "emoji": ""}
+        print(key,"- Not in data.json")
 
 save_state(state)
 """

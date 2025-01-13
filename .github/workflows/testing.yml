@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * *'
   push:
     branches:
-      - main
+      - Testing
 
 permissions:
   contents: write
@@ -19,9 +19,6 @@ concurrency:
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
@@ -47,24 +44,18 @@ jobs:
     - name: Run Python script
       run: python main.py
 
+    
 
+
+    # Step 7: Commit and push changes to cache branch
     - name: Commit and push cache
       run: |
         git add .
         git commit -m "Cache update $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to cache."
-        git push origin main
+        git push origin Testing
 
-    # Step 9: Setup Pages
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
 
-    # Step 10: Upload artifact
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: '.'
 
-    # Step 11: Deploy to GitHub Pages
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+
+
+
