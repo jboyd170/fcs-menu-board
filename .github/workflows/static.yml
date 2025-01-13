@@ -29,20 +29,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # Step 2: Fetch cache branch
-    - name: Fetch cache branch
-      run: |
-        git fetch origin cache || echo "No cache branch exists yet"
 
-    # Step 3: Check out the cache branch (if exists)
-    - name: Check out cache branch
-      run: |
-        if git show-ref --verify --quiet refs/remotes/origin/cache; then
-          git checkout cache
-        else
-          echo "Cache branch does not exist, starting fresh."
-          git checkout -b cache
-        fi
 
     # Step 4: Set up Python environment
     - name: Set up Python
@@ -60,18 +47,12 @@ jobs:
     - name: Run Python script
       run: python main.py
 
-    # Step 7: Commit and push changes to cache branch
+
     - name: Commit and push cache
       run: |
         git add .
         git commit -m "Cache update $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to cache."
-        git push origin cache
-
-    # Step 8: Configure Git for deployment
-    - name: Configure Git
-      run: |
-        git config --global user.name "AMANANTMAN"
-        git config --global user.email "hollowhog101@gmail.com"
+        git push origin main
 
     # Step 9: Setup Pages
     - name: Setup Pages

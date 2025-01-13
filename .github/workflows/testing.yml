@@ -44,10 +44,7 @@ jobs:
     - name: Run Python script
       run: python main.py
 
-    - name: Configure Git
-      run: |
-        git config --global user.name "AMANANTMAN"
-        git config --global user.email "hollowhog101@gmail.com"
+    
 
 
     # Step 7: Commit and push changes to cache branch
