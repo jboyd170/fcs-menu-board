@@ -49,6 +49,9 @@ jobs:
         git config --global user.name "AMANANTMAN"
         git config --global user.email "hollowhog101@gmail.com"
 
+    - name: Checkout code
+      uses: actions/checkout@v4
+
     # Step 7: Commit and push changes to cache branch
     - name: Commit and push cache
       run: |
