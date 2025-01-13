@@ -92,6 +92,7 @@ menu_items = main_menu_items + other_items
 for key in menu_items:
     if key not in state.keys():
         state[key] = {"photo": "", "emoji": ""}
+        print(key,"- Not in data.json")
 
 save_state(state)
 """
