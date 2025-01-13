@@ -57,6 +57,8 @@ jobs:
     - name: Run Python script
       run: python main.py
 
+
+
     # Step 7: Commit and push changes to cache branch
     - name: Commit and push cache
       run: |
@@ -64,11 +66,7 @@ jobs:
         git commit -m "Cache update $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to cache."
         git push origin cache
 
-    # Step 8: Configure Git for deployment
-    - name: Configure Git
-      run: |
-        git config --global user.name "AMANANTMAN"
-        git config --global user.email "hollowhog101@gmail.com"
+
 
 
 
